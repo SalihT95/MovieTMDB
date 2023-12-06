@@ -1,6 +1,8 @@
 package com.turkoglu.themovie.data.di
 
 import com.turkoglu.themovie.data.remote.MovieAPI
+import com.turkoglu.themovie.data.repo.MovieRepositoryImpl
+import com.turkoglu.themovie.domain.repo.MovieRepository
 import com.turkoglu.themovie.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -23,5 +25,11 @@ object AppModule {
             .build()
             .create(MovieAPI::class.java)
     }
+    @Provides
+    @Singleton
+    fun provideMovieRepository(api : MovieAPI): MovieRepository {
+        return MovieRepositoryImpl(api)
+    }
+
 
 }

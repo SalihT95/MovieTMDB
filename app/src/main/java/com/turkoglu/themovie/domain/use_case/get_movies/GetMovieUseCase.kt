@@ -9,13 +9,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class GetMovieUseCase @Inject constructor(private val repository : MovieRepository) {
+class GetMoviesUseCase @Inject constructor(private val repository : MovieRepository) {
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     @Throws(Exception::class) // tek tür hata döndermek için yazılabilir
-    fun executeGetMovies() : Flow<Resource<List<Movie>>> = flow {
+    fun executeGetMovies(page : Int) : Flow<Resource<List<Movie>>> = flow {
         emit(Resource.Loading())
-        val movieList = repository.getMovies()
+        val movieList = repository.getMovies(page = page)
         emit(Resource.Success(movieList))
 
         /*try {
@@ -29,5 +29,9 @@ class GetMovieUseCase @Inject constructor(private val repository : MovieReposito
 
          */
     }
+
+
+
+
 
 }

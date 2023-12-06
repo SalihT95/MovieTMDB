@@ -8,7 +8,7 @@ data class Movie(
     val popularity: Double, // 48.261451
     val imageUrl: String, // /e1mjopzAS2KNsvpbpahQ1a6SkSn.jpg
     val releaseDate: String, // 2016-08-03
-    val title: String, // Suicide Squad
+    val title: String
 
 
 )

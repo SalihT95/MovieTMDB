@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 data class HomeScreenState(
     var loading: Boolean = false,
     var refreshing: Boolean = false,
-    var movies: Flow<Resource<List<Movie>>>? = null,
+    var movies: List<Movie> = emptyList(),
     var errorMessage: String? = null,
     var loadFinished: Boolean = false
 )
