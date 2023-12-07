@@ -38,17 +38,14 @@ class HomeViewModel @Inject constructor(
 
         viewModelScope.launch {
             uiState = uiState.copy(loading = true)
-
+            println("List ${uiState.movies}")
             try {
                 val resultMovies = getMoviesUseCase.executeGetMovies(page = currentPage)
-
-                resultMovies.map {
-                    println("resultMovies : ${it.data}")
-                }
 
                 resultMovies.let {  resultMovies->
 
                     resultMovies.map{ResourceMovieList->
+                        println("resultMoviesMap")
                         val movies :List<Movie> = if (currentPage == 1) ResourceMovieList.data!! else   uiState.movies + ResourceMovieList.data!! //uiState.movies + resultMovies
                         currentPage += 1
                         println("loadingTryBefore : ${uiState.loading}")

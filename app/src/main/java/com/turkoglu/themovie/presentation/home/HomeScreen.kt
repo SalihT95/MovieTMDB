@@ -34,7 +34,7 @@ fun HomeScreen(
     loadNextMovies : (Boolean) -> Unit,
     navigateToDetail : (Movie) -> Unit
 ) {
-
+    println("List Screen ${uiState.movies}")
 
     val pullRefreshState = rememberPullRefreshState(
         refreshing = uiState.refreshing,
