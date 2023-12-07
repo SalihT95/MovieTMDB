@@ -29,6 +29,9 @@ class HomeViewModel @Inject constructor(
 
     fun loadMovies(forceReload : Boolean = false){
 
+        println("LoadMovies")
+        println("uiState.loading : ${uiState.loading}")
+        println("forceReload : $forceReload")
         if (uiState.loading) return
         if (forceReload) currentPage =1
         if (currentPage == 1) uiState = uiState.copy(refreshing = true)
@@ -39,19 +42,23 @@ class HomeViewModel @Inject constructor(
             try {
                 val resultMovies = getMoviesUseCase.executeGetMovies(page = currentPage)
 
-
+                resultMovies.map {
+                    println("resultMovies : ${it.data}")
+                }
 
                 resultMovies.let {  resultMovies->
 
                     resultMovies.map{ResourceMovieList->
                         val movies :List<Movie> = if (currentPage == 1) ResourceMovieList.data!! else   uiState.movies + ResourceMovieList.data!! //uiState.movies + resultMovies
                         currentPage += 1
+                        println("loadingTryBefore : ${uiState.loading}")
                         uiState = uiState.copy(
                             loading = false,
                             refreshing = false,
                             loadFinished = true,
                             movies = movies
                         )
+                        println("loadingTryAfter : ${uiState.loading}")
                     }
                 }
             }catch (error : Throwable){
@@ -61,6 +68,7 @@ class HomeViewModel @Inject constructor(
                     loadFinished = true,
                     errorMessage = "Could not load : ${error.localizedMessage}"
                 )
+                println("loadingCatch : ${uiState.loading}")
             }
 
         }
