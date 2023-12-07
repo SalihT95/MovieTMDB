@@ -1,8 +1,10 @@
 package com.turkoglu.themovie.presentation
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresExtension
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -21,18 +23,13 @@ import com.turkoglu.themovie.MovieApp
 import com.turkoglu.themovie.common.Destinations
 import com.turkoglu.themovie.common.Home
 import com.turkoglu.themovie.presentation.ui.TheMovieTheme
-
-data class BottomNavigationItem(
-    val title : String,
-    val selectedIcon : ImageVector,
-    val unSelectedIcon: ImageVector,
-    val hasNews : Boolean,
-    val badgeCount : Int?  = null
-)
+import dagger.hilt.android.AndroidEntryPoint
 
 
-@OptIn(ExperimentalMaterial3Api::class)
+
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -65,4 +62,10 @@ fun BottomTabBar(
 
     }
 }
-
+data class BottomNavigationItem(
+    val title : String,
+    val selectedIcon : ImageVector,
+    val unSelectedIcon: ImageVector,
+    val hasNews : Boolean,
+    val badgeCount : Int?  = null
+)

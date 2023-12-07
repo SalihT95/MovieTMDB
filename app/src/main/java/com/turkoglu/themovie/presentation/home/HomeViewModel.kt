@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.turkoglu.themovie.domain.model.Movie
 import com.turkoglu.themovie.domain.use_case.get_movies.GetMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
@@ -37,16 +38,19 @@ class HomeViewModel @Inject constructor(
 
             try {
                 val resultMovies = getMoviesUseCase.executeGetMovies(page = currentPage)
-                //val movies = if (currentPage == 1) resultMovies else uiState.movies + resultMovies
 
-                resultMovies?.let { movies ->
-                    movies.map {
+
+
+                resultMovies.let {  resultMovies->
+
+                    resultMovies.map{ResourceMovieList->
+                        val movies :List<Movie> = if (currentPage == 1) ResourceMovieList.data!! else   uiState.movies + ResourceMovieList.data!! //uiState.movies + resultMovies
                         currentPage += 1
                         uiState = uiState.copy(
                             loading = false,
                             refreshing = false,
                             loadFinished = true,
-                            movies = it.data!!
+                            movies = movies
                         )
                     }
                 }
