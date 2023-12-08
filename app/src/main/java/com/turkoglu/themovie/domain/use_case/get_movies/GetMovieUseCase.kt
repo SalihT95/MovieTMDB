@@ -13,11 +13,13 @@ class GetMoviesUseCase @Inject constructor(private val repository : MovieReposit
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     @Throws(Exception::class) // tek tür hata döndermek için yazılabilir
-    fun executeGetMovies(page : Int) : Flow<Resource<List<Movie>>> = flow {
-        emit(Resource.Loading())
+    fun executeGetMovies(page : Int) : Flow<List<Movie>> /*Flow<Resource<List<Movie>>> */= flow{
+        val movieList = repository.getMovies(page = page)
+        emit(movieList)
+        /*emit(Resource.Loading())
         val movieList = repository.getMovies(page = page)
         emit(Resource.Success(movieList))
-
+*/
         /*try {
 
 

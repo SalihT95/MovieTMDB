@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.turkoglu.themovie.domain.model.Movie
 import com.turkoglu.themovie.domain.use_case.get_movies.GetMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,38 +28,35 @@ class HomeViewModel @Inject constructor(
         loadMovies(forceReload = false)
     }
 
-    fun loadMovies(forceReload : Boolean = false){
-
-        println("LoadMovies")
-        println("uiState.loading : ${uiState.loading}")
-        println("forceReload : $forceReload")
+    fun loadMovies(forceReload: Boolean = false) {
         if (uiState.loading) return
-        if (forceReload) currentPage =1
+        if (forceReload) currentPage = 1
         if (currentPage == 1) uiState = uiState.copy(refreshing = true)
+
 
         viewModelScope.launch {
             uiState = uiState.copy(loading = true)
-            println("List ${uiState.movies}")
+
             try {
                 val resultMovies = getMoviesUseCase.executeGetMovies(page = currentPage)
 
-                resultMovies.let {  resultMovies->
 
-                    resultMovies.map{ResourceMovieList->
-                        println("resultMoviesMap")
-                        val movies :List<Movie> = if (currentPage == 1) ResourceMovieList.data!! else   uiState.movies + ResourceMovieList.data!! //uiState.movies + resultMovies
-                        currentPage += 1
-                        println("loadingTryBefore : ${uiState.loading}")
-                        uiState = uiState.copy(
-                            loading = false,
-                            refreshing = false,
-                            loadFinished = true,
-                            movies = movies
-                        )
-                        println("loadingTryAfter : ${uiState.loading}")
-                    }
+                resultMovies.map { ResourceMovieList ->
+                    println("resultMoviesMap")
+                    val movies= if (currentPage == 1) ResourceMovieList else uiState.movies + ResourceMovieList
+                    currentPage += 1
+                    println("loadingTryBefore : ${uiState.loading}")
+                    uiState = uiState.copy(
+                        loading = false,
+                        refreshing = false,
+                        loadFinished = true,
+                        movies = movies
+                    )
+
+                    println("loadingTryAfter : ${uiState.loading}")
                 }
-            }catch (error : Throwable){
+                println("List ${uiState.movies}")
+            } catch (error: Throwable) {
                 uiState = uiState.copy(
                     loading = false,
                     refreshing = false,
