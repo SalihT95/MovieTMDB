@@ -10,5 +10,4 @@ data class Movie(
     val releaseDate: String, // 2016-08-03
     val title: String
 
-
 )

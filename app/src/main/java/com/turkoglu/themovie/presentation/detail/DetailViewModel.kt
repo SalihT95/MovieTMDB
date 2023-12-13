@@ -17,10 +17,9 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     private val getMovieUseCase: GetMovieUseCase,
-    private val movieId: Int
 ) :ViewModel() {
     var uiState by mutableStateOf(DetailScreenState())
-
+    var movieId: Int = 123
     init {
         loadMovie(movieId)
     }

@@ -21,6 +21,7 @@ import com.turkoglu.themovie.MovieApp
 import com.turkoglu.themovie.common.Destinations
 import com.turkoglu.themovie.common.Home
 import com.turkoglu.themovie.presentation.ui.TheMovieTheme
+import dagger.hilt.android.AndroidEntryPoint
 
 data class BottomNavigationItem(
     val title : String,
@@ -32,6 +33,7 @@ data class BottomNavigationItem(
 
 
 @OptIn(ExperimentalMaterial3Api::class)
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +44,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MovieApp()
+                    //MovieApp()
                 }
             }
         }
