@@ -5,8 +5,10 @@ import androidx.annotation.RequiresExtension
 import com.turkoglu.themovie.domain.model.Movie
 import com.turkoglu.themovie.domain.repo.MovieRepository
 import com.turkoglu.themovie.util.Resource
+import com.turkoglu.themovie.util.toMovie
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import retrofit2.Response
 import javax.inject.Inject
 
 class GetMoviesUseCase @Inject constructor(private val repository : MovieRepository) {
@@ -18,8 +20,13 @@ class GetMoviesUseCase @Inject constructor(private val repository : MovieReposit
         emit(movieList)
         /*emit(Resource.Loading())
         val movieList = repository.getMovies(page = page)
+<<<<<<< HEAD
         emit(Resource.Success(movieList))
 */
+=======
+        emit(Resource.Success(movieList.toMovie()))
+
+>>>>>>> fix
         /*try {
 
 

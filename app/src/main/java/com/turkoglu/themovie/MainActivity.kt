@@ -1,4 +1,4 @@
-package com.turkoglu.themovie.presentation
+package com.turkoglu.themovie
 
 import android.os.Build
 import android.os.Bundle
@@ -19,14 +19,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.turkoglu.themovie.MovieApp
-import com.turkoglu.themovie.common.Destinations
 import com.turkoglu.themovie.common.Home
 import com.turkoglu.themovie.presentation.ui.TheMovieTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 
-
+@OptIn(ExperimentalMaterial3Api::class)
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
@@ -62,10 +60,3 @@ fun BottomTabBar(
 
     }
 }
-data class BottomNavigationItem(
-    val title : String,
-    val selectedIcon : ImageVector,
-    val unSelectedIcon: ImageVector,
-    val hasNews : Boolean,
-    val badgeCount : Int?  = null
-)

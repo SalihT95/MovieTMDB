@@ -5,6 +5,7 @@ import androidx.annotation.RequiresExtension
 import com.turkoglu.themovie.domain.model.MovieDetail
 import com.turkoglu.themovie.domain.repo.MovieRepository
 import com.turkoglu.themovie.util.Resource
+import com.turkoglu.themovie.util.toMovie
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -16,7 +17,7 @@ class GetMovieUseCase @Inject constructor(private val repository : MovieReposito
     fun executeGetMovie(movieId : Int) : Flow<Resource<MovieDetail>> = flow {
         emit(Resource.Loading())
         val movie = repository.getMovie(movieId =movieId)
-        emit(Resource.Success(movie))
+        emit(Resource.Success(movie.toMovie()))
 
     }
 }
