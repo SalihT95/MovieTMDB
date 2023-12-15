@@ -43,7 +43,7 @@ class HomeViewModel @Inject constructor(
 
                 resultMovies.map { ResourceMovieList ->
                     println("resultMoviesMap")
-                    val movies= if (currentPage == 1) ResourceMovieList else uiState.movies + ResourceMovieList
+                    val movies : List<Movie> = if (currentPage == 1) ResourceMovieList.data!! else uiState.movies + ResourceMovieList.data!!
                     currentPage += 1
                     println("loadingTryBefore : ${uiState.loading}")
                     uiState = uiState.copy(
