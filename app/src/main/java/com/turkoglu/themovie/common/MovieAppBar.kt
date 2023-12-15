@@ -4,6 +4,7 @@ import android.icu.util.UniversalTimeScale
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,17 +17,21 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.google.android.material.bottomappbar.BottomAppBar
+
 
 @Composable
 fun MovieAppBar(
-    modifier: Modifier=Modifier,
-    canNavigateBack : Boolean,
-    currentScreen : Destinations,
-    onNavigateBack : () -> Unit
+    modifier: Modifier = Modifier,
+    canNavigateBack: Boolean,
+    currentScreen: Destinations,
+    onNavigateBack: () -> Unit
 ) {
     Surface(
         modifier = modifier
@@ -35,17 +40,23 @@ fun MovieAppBar(
         elevation = 4.dp,
         color = MaterialTheme.colors.primary
     ) {
-        Row(modifier= modifier.padding(start = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-            AnimatedVisibility(visible = canNavigateBack) {
-                IconButton(onClick = onNavigateBack) {
-                    Icon(imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = null,
-                        tint = MaterialTheme.colors.onBackground
-                    )
-                }
-                Spacer(modifier = modifier.width(24.dp))
-            }
-            Text(text = currentScreen.title,
+        Row(
+            modifier = modifier.padding(start = 8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+/* AnimatedVisibility(visible = canNavigateBack) {
+     conButtonnClick = onNavigateBack) {
+         Icon(imageVector = Icons.Filled.ArrowBack,
+             contentDescription = null,
+             tint = MaterialTheme.colors.onBackground
+         )
+     }
+
+
+     Spacer(modifier = modifier.width(24.dp))
+ }*/
+            Text(
+                text = currentScreen.title,
                 style = MaterialTheme.typography.h6,
                 modifier = modifier.padding(12.dp),
                 color = MaterialTheme.colors.onSurface
