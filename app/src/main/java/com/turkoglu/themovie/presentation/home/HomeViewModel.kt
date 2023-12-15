@@ -7,10 +7,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.turkoglu.themovie.domain.model.Movie
 import com.turkoglu.themovie.domain.use_case.get_movies.GetMoviesUseCase
+import com.turkoglu.themovie.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import javax.inject.Inject
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
@@ -37,18 +41,18 @@ class HomeViewModel @Inject constructor(
 
             try {
                 val resultMovies = getMoviesUseCase.executeGetMovies(page = currentPage)
-                //val movies = if (currentPage == 1) resultMovies else uiState.movies + resultMovies
 
-                resultMovies?.let { movies ->
-                    movies.map {
-                        currentPage += 1
-                        uiState = uiState.copy(
-                            loading = false,
-                            refreshing = false,
-                            loadFinished = true,
-                            movies = it.data!!
-                        )
-                    }
+
+                resultMovies.map {ResourceMovieList->
+                    val movies : List<Movie> = if (currentPage == 1) ResourceMovieList.data!! else uiState.movies + ResourceMovieList.data!!
+                    currentPage += 1
+                    uiState = uiState.copy(
+                        loading = false,
+                        refreshing = false,
+                        loadFinished = true,
+                        movies = movies
+                    )
+
                 }
             }catch (error : Throwable){
                 uiState = uiState.copy(

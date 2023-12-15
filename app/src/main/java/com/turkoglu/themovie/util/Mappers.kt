@@ -9,7 +9,8 @@ import com.turkoglu.themovie.util.Constants.IMAGE_BASE_URL
 
 fun PopularResponse.toMovie() : List<Movie> {
     return  results.map {
-        Movie(genreIds = it.genreIds,
+        Movie(
+            genreIds = it.genreIds,
             id = it.id,
             overview = it.overview,
             popularity  = it.popularity,

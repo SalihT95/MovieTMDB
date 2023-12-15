@@ -19,13 +19,13 @@ class DetailViewModel @Inject constructor(
     private val getMovieUseCase: GetMovieUseCase,
 ) :ViewModel() {
     var uiState by mutableStateOf(DetailScreenState())
-    var movieId: Int = 123
+    private var movieId: String ="123"
     init {
         loadMovie(movieId)
     }
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
-    private fun loadMovie(movieId: Int){
+    private fun loadMovie(movieId: String){
         viewModelScope.launch {
             uiState = uiState.copy(loading = true)
 /*

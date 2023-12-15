@@ -21,9 +21,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.google.android.material.bottomappbar.BottomAppBar
+import com.turkoglu.themovie.presentation.home.HomeScreenState
+import com.turkoglu.themovie.presentation.home.HomeViewModel
 
 
 @Composable
@@ -62,7 +65,6 @@ fun MovieAppBar(
                 color = MaterialTheme.colors.onSurface
             )
         }
-
     }
 
 }

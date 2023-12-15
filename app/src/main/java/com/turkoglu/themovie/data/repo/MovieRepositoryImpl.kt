@@ -15,7 +15,7 @@ class MovieRepositoryImpl @Inject constructor(private val api :MovieAPI) :MovieR
         return api.getMovies(page)
     }
 
-    override suspend fun getMovie(movieId: Int): DetailResponse {
+    override suspend fun getMovie(movieId: String): DetailResponse {
         return  api.getMovieDetails(movieId)
     }
 }

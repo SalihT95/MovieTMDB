@@ -8,32 +8,22 @@ import com.turkoglu.themovie.util.Resource
 import com.turkoglu.themovie.util.toMovie
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import retrofit2.Response
+import java.io.IOException
 import javax.inject.Inject
 
 class GetMoviesUseCase @Inject constructor(private val repository : MovieRepository) {
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
-    @Throws(Exception::class) // tek tür hata döndermek için yazılabilir
+    @Throws(Exception::class)
     fun executeGetMovies(page : Int) : Flow<Resource<List<Movie>>> = flow {
-        emit(Resource.Loading())
-        val movieList = repository.getMovies(page = page)
-        emit(Resource.Success(movieList.toMovie()))
-
-        /*try {
-
-
-        } catch (e: HttpException) {
-            emit(Resource.Error(message = e.localizedMessage ?: "Error!"))
-        } catch (e: IOError) {
-            emit(Resource.Error(message = "Could not reach internet"))
+        try {
+            emit(Resource.Loading())
+            val movieList = repository.getMovies(page = page)
+            emit(Resource.Success(movieList.toMovie()))
+        }catch (e:IOException){
+            emit(Resource.Error(message = "No internet connection"))
         }
 
-         */
+
     }
-
-
-
-
-
 }

@@ -1,6 +1,7 @@
 package com.turkoglu.themovie.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
+import com.turkoglu.themovie.domain.model.Movie
 
 data class PopularResponse(
     val page: Int, // 1

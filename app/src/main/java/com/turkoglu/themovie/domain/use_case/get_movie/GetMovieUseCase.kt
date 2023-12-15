@@ -8,16 +8,24 @@ import com.turkoglu.themovie.util.Resource
 import com.turkoglu.themovie.util.toMovie
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.io.IOException
 import javax.inject.Inject
 
 class GetMovieUseCase @Inject constructor(private val repository : MovieRepository)  {
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     @Throws(Exception::class) // tek tür hata döndermek için yazılabilir
-    fun executeGetMovie(movieId : Int) : Flow<Resource<MovieDetail>> = flow {
-        emit(Resource.Loading())
-        val movie = repository.getMovie(movieId =movieId)
-        emit(Resource.Success(movie.toMovie()))
+    fun executeGetMovie(movieId : String) : Flow<Resource<MovieDetail>> = flow {
+
+        try {
+            emit(Resource.Loading())
+            val movie = repository.getMovie(movieId =movieId)
+            emit(Resource.Success(movie.toMovie()))
+        }catch (e : IOException){
+            emit(Resource.Error(message = "No internet connection"))
+        }
+
+
 
     }
 }
