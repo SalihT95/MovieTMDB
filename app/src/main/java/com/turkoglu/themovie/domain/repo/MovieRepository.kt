@@ -7,5 +7,5 @@ import com.turkoglu.themovie.domain.model.MovieDetail
 
 interface MovieRepository {
     suspend fun getMovies(page : Int) : PopularResponse
-    suspend fun getMovie(movieId : String) : DetailResponse
+    suspend fun getMovie(movieId : Int) : DetailResponse
 }

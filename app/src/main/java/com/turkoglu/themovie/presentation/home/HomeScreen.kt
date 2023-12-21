@@ -55,7 +55,7 @@ fun HomeScreen(
                 key = {_, movie -> movie.id}
             ){index, movie ->
                 MovieListItem(movie = movie, onMovieClick = { navigateToDetail(movie) })
-
+                println(uiState.movies)
                 if (index >= uiState.movies.size -1 && !uiState.loading && !uiState.loadFinished){
                     LaunchedEffect(key1 = Unit, block = { loadNextMovies(false) })
                 }

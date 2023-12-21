@@ -7,4 +7,6 @@ object Constants {
     const val BASE_URL = "https://api.themoviedb.org/3/"
     const val API_KEY = "a0298b53fe1b2b0a9b25d415f742acb5"
     const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500/"
+    const val STARTING_PAGE_INDEX = 0
+
 }

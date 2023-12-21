@@ -35,6 +35,7 @@ fun MovieListItem(
     movie: Movie,
     onMovieClick: (Movie) -> Unit
 ) {
+    println(movie.title)
     Card(
         modifier = modifier
             .height(220.dp)
@@ -64,7 +65,7 @@ fun MovieListItem(
                     Image(
                         imageVector =  Icons.Default.FavoriteBorder,
                         contentDescription = null,
-                        modifier = modifier.padding(12.dp).align(Alignment.Center)
+                        modifier = modifier.padding(12.dp).align(Alignment.TopEnd)
                     )
                 }
             }

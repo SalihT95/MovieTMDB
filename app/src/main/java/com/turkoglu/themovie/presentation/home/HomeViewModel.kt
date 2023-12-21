@@ -13,6 +13,7 @@ import com.turkoglu.themovie.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
@@ -37,11 +38,30 @@ class HomeViewModel @Inject constructor(
         if (currentPage == 1) uiState = uiState.copy(refreshing = true)
 
         viewModelScope.launch {
-            uiState = uiState.copy(loading = true)
+            uiState = uiState.copy(loading = false)
+            getMoviesUseCase.executeGetMovies(page = currentPage).onEach {
+                uiState = when(it){
+                    is Resource.Success -> {
+                        HomeScreenState(movies = it.data ?: emptyList())
+                    }
 
+                    is Resource.Error -> {
+                        HomeScreenState( loading = false,
+                            refreshing = false,
+                            loadFinished = true,
+                            errorMessage = it.message ?: "Error!")
+                    }
+
+                    is Resource.Loading -> {
+                        HomeScreenState(loading = true)
+                    }
+                }
+            }
+
+            /*
             try {
-                val resultMovies = getMoviesUseCase.executeGetMovies(page = currentPage)
 
+                println("Deneme : ${uiState.movies}")
 
                 resultMovies.map {ResourceMovieList->
                     val movies : List<Movie> = if (currentPage == 1) ResourceMovieList.data!! else uiState.movies + ResourceMovieList.data!!
@@ -62,6 +82,8 @@ class HomeViewModel @Inject constructor(
                     errorMessage = "Could not load : ${error.localizedMessage}"
                 )
             }
+
+             */
 
         }
     }

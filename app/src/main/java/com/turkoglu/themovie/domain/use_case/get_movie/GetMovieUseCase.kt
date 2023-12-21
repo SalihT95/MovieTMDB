@@ -15,7 +15,7 @@ class GetMovieUseCase @Inject constructor(private val repository : MovieReposito
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     @Throws(Exception::class) // tek tür hata döndermek için yazılabilir
-    fun executeGetMovie(movieId : String) : Flow<Resource<MovieDetail>> = flow {
+    fun executeGetMovie(movieId : Int) : Flow<Resource<MovieDetail>> = flow {
 
         try {
             emit(Resource.Loading())

@@ -15,15 +15,10 @@ class GetMoviesUseCase @Inject constructor(private val repository : MovieReposit
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     @Throws(Exception::class)
+
     fun executeGetMovies(page : Int) : Flow<Resource<List<Movie>>> = flow {
-        try {
-            emit(Resource.Loading())
-            val movieList = repository.getMovies(page = page)
-            emit(Resource.Success(movieList.toMovie()))
-        }catch (e:IOException){
-            emit(Resource.Error(message = "No internet connection"))
-        }
-
-
+        emit(Resource.Loading())
+        val movieList = repository.getMovies(page)
+        emit(Resource.Success(movieList.toMovie()))
     }
 }

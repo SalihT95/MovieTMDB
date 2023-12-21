@@ -23,9 +23,6 @@ import com.turkoglu.themovie.common.Home
 import com.turkoglu.themovie.presentation.ui.TheMovieTheme
 import dagger.hilt.android.AndroidEntryPoint
 
-
-
-@OptIn(ExperimentalMaterial3Api::class)
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
@@ -42,23 +39,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-}
-
-@Composable
-fun BottomTabBar(
-    modifier: Modifier,
-    backgroundColor: Color,
-    elevation: Dp,
-    function: () -> Unit) {
-    var selectedTab by remember { mutableStateOf(Home.route) }
-
-    BottomTabBar(
-        Modifier.fillMaxWidth(),
-        backgroundColor = Color.White,
-        elevation = 4.dp
-    ) {
-
     }
 }
 
